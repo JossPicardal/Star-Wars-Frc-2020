@@ -34,7 +34,7 @@ public class Robot extends TimedRobot {
   private Joystick stick = new Joystick(0);
   XboxController xbox = new XboxController(0);
 
-  // reprogram hang motors
+  // reprogram every motor excluding the drivebase motors
   VictorSP leftDrive, rightDrive, leftHang1, leftHang2, rightHang1, rightHang2, leftLift, rightLift;
   PWMVictorSPX intake;
   DifferentialDrive robotDrive;
