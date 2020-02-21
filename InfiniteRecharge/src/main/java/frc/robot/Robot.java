@@ -4,6 +4,9 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
+
+//all required libraries for the robot
+
 package frc.robot;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -30,6 +33,8 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   private Joystick stick = new Joystick(0);
   XboxController xbox = new XboxController(0);
+
+  // reprogram hang motors
   VictorSP leftDrive, rightDrive, leftHang1, leftHang2, rightHang1, rightHang2, leftLift, rightLift;
   PWMVictorSPX intake;
   DifferentialDrive robotDrive;
@@ -112,7 +117,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    
+
   boolean aButton = stick.getRawButton(1);
   boolean bButton = stick.getRawButton(2);
   boolean xButton = stick.getRawButton(3);
@@ -133,8 +138,8 @@ public class Robot extends TimedRobot {
     // Lift DOWN
     leftLift.set(0.75);
     rightLift.set(-0.75);
-    } 
-    
+    }
+
     else if (LB) {
     // Intake based on trigger position
     intake.set(1);
@@ -143,7 +148,7 @@ public class Robot extends TimedRobot {
     // Shoot ball
     intake.set (-LT);
     }
-    
+
     else if (bButton) {
     //Deploy hang
     leftHang1.set(0.5);
@@ -158,20 +163,23 @@ public class Robot extends TimedRobot {
     rightHang1.set(0.5);
     rightHang2.set(0.5);
     }
+
+    // no Pneumatics will be used for 2020
     
-    
-    else if (aButton) {
-    //clamp onto HAB w/ Pneumatics
-    soleRight.set(DoubleSolenoid.Value.kForward);
-    soleLeft.set(DoubleSolenoid.Value.kForward);
-    }
-    else if (yButton) {
-    //Unclamp HAB w/ Pneumatics
-    soleRight.set(DoubleSolenoid.Value.kReverse);
-    soleLeft.set(DoubleSolenoid.Value.kReverse);
-    }
-    
-    
+    // else if (aButton) {
+    // //clamp onto HAB w/ Pneumatics
+    // soleRight.set(DoubleSolenoid.Value.kForward);
+    // soleLeft.set(DoubleSolenoid.Value.kForward);
+    // }
+    // 
+    //
+    // else if (yButton) {
+    // //Unclamp HAB w/ Pneumatics
+    // soleRight.set(DoubleSolenoid.Value.kReverse);
+    // soleLeft.set(DoubleSolenoid.Value.kReverse);
+    // }
+
+
     else {
     leftHang1.set(0);
     leftHang2.set(0);
@@ -189,3 +197,10 @@ public class Robot extends TimedRobot {
   public void testPeriodic() {
   }
 }
+
+/* 
+unused buttons
+A
+Y
+
+*/
