@@ -9,7 +9,8 @@
 
 package frc.robot;
 import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+//pneumatics library. Not included
+// import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -35,11 +36,12 @@ public class Robot extends TimedRobot {
   XboxController xbox = new XboxController(0);
 
   // reprogram every motor excluding the drivebase motors
-  VictorSP leftDrive, rightDrive, leftHang1, leftHang2, rightHang1, rightHang2, leftLift, rightLift;
+  VictorSP leftDrive, rightDrive, LeftHang1, leftHang2, rightHang1, rightHang2, motorLift/* , rightLift*/;
   PWMVictorSPX intake;
   DifferentialDrive robotDrive;
   SpeedControllerGroup leftB, rightB;
-  DoubleSolenoid soleRight, soleLeft;
+  //No pnematics will be used on 2020 robot
+  // DoubleSolenoid soleRight, soleLeft;
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -56,13 +58,12 @@ public class Robot extends TimedRobot {
     //setting drive base type
     robotDrive = new DifferentialDrive(leftDB, rightDB);
     // Hang
-    leftHang1 = new VictorSP(4);
+    LeftHang1 = new VictorSP(4);
     leftHang2 = new VictorSP(3);
     rightHang1 = new VictorSP(0);
     rightHang2 = new VictorSP(1);
-    //Lift
-    leftLift = new VictorSP(5);
-    rightLift = new VictorSP(2);
+    motorLift = new VictorSP(5);
+    // rightLift = new VictorSP(2);
     //Intake
     intake = new PWMVictorSPX(8);
     //Camera
@@ -126,18 +127,19 @@ public class Robot extends TimedRobot {
   double RT = stick.getRawAxis(3);
   boolean LB = stick.getRawButton(5);
   double LT = stick.getRawAxis(2);
-  double joyR = stick.getRawAxis(5);
-  double joyL = stick.getRawAxis(1);
+  //Pneumatics controller
+  // double joyR = stick.getRawAxis(5);
+  // double joyL = stick.getRawAxis(1);
   robotDrive.tankDrive(-stick.getRawAxis(1), -stick.getRawAxis(5), true);
     if (RB) { //gets R upper trigger
     //Lift UP
-    leftLift.set(-0.75);
-    rightLift.set(0.75);
+    motorLift.set(-0.75);
+    //rightLift.set(0.75);
     }
     else if (RT > 0) {
     // Lift DOWN
-    leftLift.set(0.75);
-    rightLift.set(-0.75);
+    motorLift.set(0.75);
+    //rightLift.set(-0.75);
     }
 
     else if (LB) {
@@ -151,14 +153,14 @@ public class Robot extends TimedRobot {
 
     else if (bButton) {
     //Deploy hang
-    leftHang1.set(0.5);
+    LeftHang1.set(0.5);
     leftHang2.set(0.5);
     rightHang1.set (-0.5);
     rightHang2.set (-0.5);
     }
     else if (xButton) {
     //Hang robot
-    leftHang1.set (-0.5);
+    LeftHang1.set (-0.5);
     leftHang2.set(-0.5);
     rightHang1.set(0.5);
     rightHang2.set(0.5);
@@ -179,14 +181,14 @@ public class Robot extends TimedRobot {
     // soleLeft.set(DoubleSolenoid.Value.kReverse);
     // }
 
-
+    //holds the motors in place
     else {
-    leftHang1.set(0);
+    LeftHang1.set(0);
     leftHang2.set(0);
     rightHang1.set (0);
     rightHang2.set(0);
-    leftLift.set(0);
-    rightLift.set(0);
+    motorLift.set(0);
+    // rightLift.set(0);
     intake.set(0);
     }
   }
@@ -202,5 +204,10 @@ public class Robot extends TimedRobot {
 unused buttons
 A
 Y
+
+*/
+
+/*
+14 motors
 
 */
