@@ -9,10 +9,8 @@
 
 package frc.robot;
 import edu.wpi.first.cameraserver.CameraServer;
-//pneumatics library. Not included
-// import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.PWMVictorSPX;
+// import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.VictorSP;
@@ -36,12 +34,10 @@ public class Robot extends TimedRobot {
   XboxController xbox = new XboxController(0);
 
   // reprogram every motor excluding the drivebase motors
-  VictorSP leftDrive, rightDrive, LeftHang1, leftHang2, rightHang1, rightHang2, motorLift/* , rightLift*/;
-  PWMVictorSPX intake;
+  VictorSP leftDrive, rightDrive, LeftHang1, leftHang2, rightHang1, rightHang2, motorLift, controlPanel, flywheel1, flywheel2, intake;
+  // PWMVictorSPX intake;
   DifferentialDrive robotDrive;
   SpeedControllerGroup leftB, rightB;
-  //No pnematics will be used on 2020 robot
-  // DoubleSolenoid soleRight, soleLeft;
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -63,9 +59,14 @@ public class Robot extends TimedRobot {
     rightHang1 = new VictorSP(0);
     rightHang2 = new VictorSP(1);
     motorLift = new VictorSP(5);
+    controlPanel = new VictorSP(8);
+    flywheel1 = new VictorSP(9);
+    flywheel2 = new VictorSP(10);
+    intake = new VictorSP(9);
     // rightLift = new VictorSP(2);
     //Intake
-    intake = new PWMVictorSPX(8);
+    //some problem might arise with using VictorSPX with VictorSP
+    // intake = new PWMVictorSPX(8);
     //Camera
     CameraServer.getInstance().startAutomaticCapture(0);
     CameraServer.getInstance().startAutomaticCapture(1);
@@ -134,21 +135,19 @@ public class Robot extends TimedRobot {
     if (RB) { //gets R upper trigger
     //Lift UP
     motorLift.set(-0.75);
-    //rightLift.set(0.75);
     }
     else if (RT > 0) {
     // Lift DOWN
     motorLift.set(0.75);
-    //rightLift.set(-0.75);
     }
 
     else if (LB) {
     // Intake based on trigger position
-    intake.set(1);
+    // intake.set(1);
     }
     else if (LT > 0) {
     // Shoot ball
-    intake.set (-LT);
+    // intake.set (-LT);
     }
 
     else if (bButton) {
@@ -166,20 +165,18 @@ public class Robot extends TimedRobot {
     rightHang2.set(0.5);
     }
 
-    // no Pneumatics will be used for 2020
+
     
-    // else if (aButton) {
-    // //clamp onto HAB w/ Pneumatics
-    // soleRight.set(DoubleSolenoid.Value.kForward);
-    // soleLeft.set(DoubleSolenoid.Value.kForward);
-    // }
-    // 
-    //
-    // else if (yButton) {
-    // //Unclamp HAB w/ Pneumatics
-    // soleRight.set(DoubleSolenoid.Value.kReverse);
-    // soleLeft.set(DoubleSolenoid.Value.kReverse);
-    // }
+    else if (aButton) {
+    //comment function here
+
+    }
+    
+    
+    else if (yButton) {
+    //comment function here
+    
+    }
 
     //holds the motors in place
     else {
@@ -189,7 +186,7 @@ public class Robot extends TimedRobot {
     rightHang2.set(0);
     motorLift.set(0);
     // rightLift.set(0);
-    intake.set(0);
+    // intake.set(0);
     }
   }
   /**
@@ -209,5 +206,24 @@ Y
 
 /*
 14 motors
+
+I = incomplete
+C= completed
+
+C 1 motor for the cascade lift
+C 4 motors for the rope lift
+C drivebase(left & right) 4 motors total
+I 1 motor for control panel
+I 2 motors for flywheel
+I 2 motors for intake
+
+*/
+
+/*
+motor controls
+
+Drivebase: leftDrive, rightDrive
+rope Hang: LeftHang1, leftHang2, rightHang1, rightHang2
+cascade Lift: motorLift
 
 */
