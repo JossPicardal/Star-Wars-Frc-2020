@@ -34,7 +34,7 @@ public class Robot extends TimedRobot {
   XboxController xbox = new XboxController(0);
 
   // reprogram every motor excluding the drivebase motors
-  VictorSP leftDrive, rightDrive, LeftHang1, leftHang2, rightHang1, rightHang2, motorLift, controlPanel, flywheel1, flywheel2, intake;
+  VictorSP leftDrive, rightDrive, LeftHang1, leftHang2, rightHang1, rightHang2, motorLift, controlPanel, flywheel1, flywheel2, intake1, intake2;
   // PWMVictorSPX intake;
   DifferentialDrive robotDrive;
   SpeedControllerGroup leftB, rightB;
@@ -62,7 +62,8 @@ public class Robot extends TimedRobot {
     controlPanel = new VictorSP(8);
     flywheel1 = new VictorSP(9);
     flywheel2 = new VictorSP(10);
-    intake = new VictorSP(9);
+    intake1 = new VictorSP(11);
+    intake2 = new VictorSP(12); 
     // rightLift = new VictorSP(2);
     //Intake
     //some problem might arise with using VictorSPX with VictorSP
@@ -226,4 +227,26 @@ Drivebase: leftDrive, rightDrive
 rope Hang: LeftHang1, leftHang2, rightHang1, rightHang2
 cascade Lift: motorLift
 
+*/
+
+/*
+  
+C 1 motor for the cascade lift
+C 4 motors for the rope lift
+C drivebase(left & right) 4 motors total
+I 1 motor for control panel
+I 2 motors for flywheel
+I 2 motors for intake
+
+Victor ports (only 9)
+
+Drivebase victor 7 & 6
+Right hang motors 0
+Left hang motors  1
+Motor lift (Cascade motor) 2
+control Panel 3
+Flywheel1 4
+Flywheel2 5
+IntakeFront 6
+IntakeBack 7
 */
