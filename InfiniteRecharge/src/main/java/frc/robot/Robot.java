@@ -250,3 +250,20 @@ Flywheel2 5
 IntakeFront 6
 IntakeBack 7
 */
+
+/*
+Hopefully the final time im redoing this
+
+Variable                  |   Port  |Motor Count| Victor # |  Function  |Button
+
+Left drivebase            | 1 port  | 2 motors  | Victor 0 | Left Stick
+right drivebase           | 1 port  | 2 motors  | Victor 1 | Right Stick
+Middle Intake             | 1 port  | 1 motor   | Victor 2 |
+Front Intake              | 1 port  | 1 motor   | Victor 3 |
+Left Flywheel             | 1 port  | 1 motor   | Victor 4 |
+Right Flywheel            | 1 port  | 1 motor   | Victor 5 |
+Control Panel             | 1 port  | 1 motor   | Victor 6 |
+Left hang                 | 1 port  | 2 motors  | Victor 7 |
+Right Hang                | 1 port  | 2 motors  | Victor 8 |
+Cascade lift              | 1 port  | 1 motor   | Victor 9 |
+*/
