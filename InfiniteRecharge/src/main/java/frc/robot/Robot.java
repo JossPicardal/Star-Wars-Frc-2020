@@ -125,6 +125,10 @@ public class Robot extends TimedRobot {
   boolean bButton = stick.getRawButton(2);
   boolean xButton = stick.getRawButton(3);
   boolean yButton = stick.getRawButton(4);
+  boolean back = stick.getRawButton(7);
+  boolean start = stick.getRawButton(8);
+  boolean leftStickButton = stick.getRawButton(9);
+  boolean rightStickButton = stick.getRawButton(10); 
   boolean RB = stick.getRawButton(6);
   double RT = stick.getRawAxis(3);
   boolean LB = stick.getRawButton(5);
@@ -253,15 +257,29 @@ IntakeBack 7
 
 /*
 Hopefully the final time im redoing this
-Variable           |   Port  |Motor Count| Victor # |  Function  |Button
+Variable           |  Port   |Motor Count| Victor # |
 Left drivebase     | 1 port  | 2 motors  | Victor 0 | Left Stick
 right drivebase    | 1 port  | 2 motors  | Victor 1 | Right Stick
-Middle Intake      | 1 port  | 1 motor   | Victor 2 |
-Front Intake       | 1 port  | 1 motor   | Victor 3 |
-Left Flywheel      | 1 port  | 1 motor   | Victor 4 |
-Right Flywheel     | 1 port  | 1 motor   | Victor 5 |
-Control Panel      | 1 port  | 1 motor   | Victor 6 |
-Left hang          | 1 port  | 2 motors  | Victor 7 |
-Right Hang         | 1 port  | 2 motors  | Victor 8 |
-Cascade lift       | 1 port  | 1 motor   | Victor 9 |
+Intake             | 1 port  | 2 motors  | Victor 2 | 
+Left Flywheel      | 1 port  | 1 motor   | Victor 3 |
+Right Flywheel     | 1 port  | 1 motor   | Victor 4 |
+Control Panel      | 1 port  | 1 motor   | Victor 5 |
+Left hang          | 1 port  | 2 motors  | Victor 6 |
+Right Hang         | 1 port  | 2 motors  | Victor 7 |
+Cascade lift       | 1 port  | 1 motor   | Victor 8 |
+*/
+
+/*
+Left Drivebase        | Left stick
+Right Drivebase       | Right Stick
+Intake                | Right Bumper Intake, Right Trigger Outtakes
+Left & Right Flywheel | Left Bumper Intake, Left Trigger Outtakes
+Control Panel         | Y button goes CW, X button goes CCW
+Rope Hang             | Down Dpad pulls rope in, Up Dpad Pushes rope
+Cascade Lift          | Up Dpad extends lift, right Dpad brings down lift
+
+a button to extend both the rope and lift, and two other buttons to 
+retract both at different times.
+**NOTE** Cascade lift and rope should go up at the
+         the same time but go down seperately
 */
