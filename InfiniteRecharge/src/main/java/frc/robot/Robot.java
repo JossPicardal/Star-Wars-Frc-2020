@@ -34,7 +34,7 @@ public class Robot extends TimedRobot {
   XboxController xbox = new XboxController(0);
 
   // reprogram every motor excluding the drivebase motors
-  VictorSP leftDrive, rightDrive, LeftHang1, leftHang2, rightHang1, rightHang2, motorLift, controlPanel, flywheel1, flywheel2, intake1, intake2;
+  VictorSP leftDrive, rightDrive, leftHang, rightHang, cascadeLift, controlPanel, leftFlywheel, rightFlywheel, intake;
   // PWMVictorSPX intake;
   DifferentialDrive robotDrive;
   SpeedControllerGroup leftB, rightB;
@@ -47,23 +47,21 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
-    leftDrive = new VictorSP(7);
-    rightDrive = new VictorSP(6);
+    leftDrive = new VictorSP(0);     // y cabled 2 motors
+    rightDrive = new VictorSP(1);    // y cabled 2 motors
     SpeedControllerGroup leftDB = new SpeedControllerGroup(leftDrive);
     SpeedControllerGroup rightDB = new SpeedControllerGroup(rightDrive);
     //setting drive base type
     robotDrive = new DifferentialDrive(leftDB, rightDB);
     // Hang
-    LeftHang1 = new VictorSP(4);
-    leftHang2 = new VictorSP(3);
-    rightHang1 = new VictorSP(0);
-    rightHang2 = new VictorSP(1);
-    motorLift = new VictorSP(5);
-    controlPanel = new VictorSP(8);
-    flywheel1 = new VictorSP(9);
-    flywheel2 = new VictorSP(10);
-    intake1 = new VictorSP(11);
-    intake2 = new VictorSP(12); 
+    intake = new VictorSP(2);       // y cabled 2 motors
+    leftFlywheel = new VictorSP(3);
+    rightFlywheel = new VictorSP(4);
+    controlPanel = new VictorSP(5);
+    leftHang = new VictorSP(6);      // y cabled 2 motors
+    rightHang = new VictorSP(7);     // y cabled 2 motors
+    cascadeLift = new VictorSP(8);
+     
     // rightLift = new VictorSP(2);
     //Intake
     //some problem might arise with using VictorSPX with VictorSP
@@ -120,25 +118,41 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    
+    boolean aButton = stick.getRawButton(1);
+    boolean bButton = stick.getRawButton(2);
+    boolean xButton = stick.getRawButton(3);
+    boolean yButton = stick.getRawButton(4);
+    boolean back = stick.getRawButton(7);
+    boolean start = stick.getRawButton(8);
+    boolean leftStickButton = stick.getRawButton(9);
+    boolean rightStickButton = stick.getRawButton(10); 
+    boolean RB = stick.getRawButton(6);
+    double RT = stick.getRawAxis(3);
+    boolean LB = stick.getRawButton(5);
+    double LT = stick.getRawAxis(2);
+    //Pneumatics controller
+    //z double joyR = stick.getRawAxis(5);
+    // double joyL = stick.getRawAxis(1);
+    robotDrive.tankDrive(-stick.getRawAxis(1), -stick.getRawAxis(5), true);
+    
+    /*
+    A           | 
+    B           |
+    X           |
+    Y           | 
+    RB          | Intakes ball
+    RT          | Out takes ball
+    LB          | Flywheel shoots
+    LT          | Flywheel reverses
+    DpadUp      | brings rope hang and cascade lift up
+    DpadDown    | Brings rope in
+    DpadLeft    |
+    DpadRight   | Brings Cascade lift in
+    */
 
-  boolean aButton = stick.getRawButton(1);
-  boolean bButton = stick.getRawButton(2);
-  boolean xButton = stick.getRawButton(3);
-  boolean yButton = stick.getRawButton(4);
-  boolean back = stick.getRawButton(7);
-  boolean start = stick.getRawButton(8);
-  boolean leftStickButton = stick.getRawButton(9);
-  boolean rightStickButton = stick.getRawButton(10); 
-  boolean RB = stick.getRawButton(6);
-  double RT = stick.getRawAxis(3);
-  boolean LB = stick.getRawButton(5);
-  double LT = stick.getRawAxis(2);
-  //Pneumatics controller
-  //z double joyR = stick.getRawAxis(5);
-  // double joyL = stick.getRawAxis(1);
-  robotDrive.tankDrive(-stick.getRawAxis(1), -stick.getRawAxis(5), true);
     if (RB) { //gets R upper trigger
-    //Lift UP
+      //Lift UP
     motorLift.set(-0.75);
     }
     else if (RT > 0) {
@@ -258,7 +272,7 @@ IntakeBack 7
 /*
 Hopefully the final time im redoing this
 Variable           |  Port   |Motor Count| Victor # |
-Left drivebase     | 1 port  | 2 motors  | Victor 0 | Left Stick
+Left drivebase     | 1 port  s| 2 motors  | Victor 0 | Left Stick
 right drivebase    | 1 port  | 2 motors  | Victor 1 | Right Stick
 Intake             | 1 port  | 2 motors  | Victor 2 | 
 Left Flywheel      | 1 port  | 1 motor   | Victor 3 |
