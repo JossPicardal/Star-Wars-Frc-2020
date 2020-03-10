@@ -10,7 +10,7 @@
 package frc.robot;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Joystick;
-// import edu.wpi.first.wpilibj.PWMVictorSPX;
+import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.VictorSP;
@@ -34,8 +34,8 @@ public class Robot extends TimedRobot {
   XboxController xbox = new XboxController(0);
 
   // reprogram every motor excluding the drivebase motors
-  VictorSP leftDrive, rightDrive, leftHang, rightHang, cascadeLift, controlPanel, leftFlywheel, rightFlywheel, intake;
-  // PWMVictorSPX intake;
+  VictorSP leftDrive, rightDrive, cascadeLift, controlPanel, leftFlywheel, rightFlywheel, intake;
+  PWMVictorSPX leftHang, rightHang;
   DifferentialDrive robotDrive;
   SpeedControllerGroup leftB, rightB;
   /**
@@ -58,8 +58,8 @@ public class Robot extends TimedRobot {
     leftFlywheel = new VictorSP(3);
     rightFlywheel = new VictorSP(4);
     controlPanel = new VictorSP(5);
-    leftHang = new VictorSP(6);      // y cabled 2 motors
-    rightHang = new VictorSP(7);     // y cabled 2 motors
+    leftHang = new PWMVictorSPX(6);      // y cabled 2 motors
+    rightHang = new PWMVictorSPX(7);     // y cabled 2 motors
     cascadeLift = new VictorSP(8);
      
     // rightLift = new VictorSP(2);
@@ -153,11 +153,11 @@ public class Robot extends TimedRobot {
 
     if (RB) { //gets R upper trigger
       //Lift UP
-    motorLift.set(-0.75);
+    cascadeLift.set(-0.75);
     }
     else if (RT > 0) {
     // Lift DOWN
-    motorLift.set(0.75);
+    cascadeLift.set(0.75);
     }
 
     else if (LB) {
@@ -171,17 +171,13 @@ public class Robot extends TimedRobot {
 
     else if (bButton) {
     //Deploy hang
-    LeftHang1.set(0.5);
-    leftHang2.set(0.5);
-    rightHang1.set (-0.5);
-    rightHang2.set (-0.5);
+    leftHang.set(0.5);
+    rightHang.set (-0.5);
     }
     else if (xButton) {
     //Hang robot
-    LeftHang1.set (-0.5);
-    leftHang2.set(-0.5);
-    rightHang1.set(0.5);
-    rightHang2.set(0.5);
+    leftHang.set (-0.5);
+    rightHang.set(0.5);
     }
 
 
@@ -199,11 +195,10 @@ public class Robot extends TimedRobot {
 
     //holds the motors in place
     else {
-    LeftHang1.set(0);
-    leftHang2.set(0);
-    rightHang1.set (0);
-    rightHang2.set(0);
-    motorLift.set(0);
+    leftHang.set(0);
+    leftHang.set(0);
+    rightHang.set (0);
+    cascadeLift.set(0);
     // rightLift.set(0);
     // intake.set(0);
     }
