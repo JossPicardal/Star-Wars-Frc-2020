@@ -136,37 +136,39 @@ public class Robot extends TimedRobot {
     // double joyL = stick.getRawAxis(1);
     robotDrive.tankDrive(-stick.getRawAxis(1), -stick.getRawAxis(5), true);
     
-    /*
-    A           | 
-    B           |
-    X           |
-    Y           | 
-    RB          | Intakes ball
-    RT          | Out takes ball
-    LB          | Flywheel shoots
-    LT          | Flywheel reverses
-    DpadUp      | brings rope hang and cascade lift up
-    DpadDown    | Brings rope in
-    DpadLeft    |
-    DpadRight   | Brings Cascade lift in
-    */
+/*
+Left Drivebase        | Left stick
+Right Drivebase       | Right Stick
+Intake                | Right Bumper Intake, Right Trigger Outtakes
+Left & Right Flywheel | Left Bumper Intake, Left Trigger Outtakes
+Control Panel         | Y button goes CW, X button goes CCW
+Rope Hang             | Down Dpad pulls rope in, Up Dpad Pushes rope
+Cascade Lift          | Up Dpad extends lift, right Dpad brings down lift
 
-    if (RB) { //gets R upper trigger
-      //Lift UP
-    cascadeLift.set(-0.75);
+a button to extend both the rope and lift, and two other buttons to 
+retract both at different times.
+**NOTE** Cascade lift and rope should go up at the
+         the same time but go down seperately
+*/
+
+    if (LB) { // Left bumper is pressed
+      // Shoots ball
+      leftFlywheel.set(1);
+      rightFlywheel.set(1);
+    }
+    else if (LT > 0) { // Left trigger is pressed
+      // Pulls ball back in
+      leftFlywheel.set(1);
+      rightFlywheel.set(1);
+    }
+
+    else if (RB) {
+    // Intake ball
+      intake.set(1);
     }
     else if (RT > 0) {
-    // Lift DOWN
-    cascadeLift.set(0.75);
-    }
-
-    else if (LB) {
-    // Intake based on trigger position
-    // intake.set(1);
-    }
-    else if (LT > 0) {
-    // Shoot ball
-    // intake.set (-LT);
+    // Push ball out
+    // intake.set (-RT);
     }
 
     else if (bButton) {
@@ -267,7 +269,7 @@ IntakeBack 7
 /*
 Hopefully the final time im redoing this
 Variable           |  Port   |Motor Count| Victor # |
-Left drivebase     | 1 port  s| 2 motors  | Victor 0 | Left Stick
+Left drivebase     | 1 port  | 2 motors  | Victor 0 | Left Stick
 right drivebase    | 1 port  | 2 motors  | Victor 1 | Right Stick
 Intake             | 1 port  | 2 motors  | Victor 2 | 
 Left Flywheel      | 1 port  | 1 motor   | Victor 3 |
@@ -282,7 +284,7 @@ Cascade lift       | 1 port  | 1 motor   | Victor 8 |
 Left Drivebase        | Left stick
 Right Drivebase       | Right Stick
 Intake                | Right Bumper Intake, Right Trigger Outtakes
-Left & Right Flywheel | Left Bumper Intake, Left Trigger Outtakes
+Left & Right Flywheel | Left Bumper fly's ball, Left Trigger reverses ball in
 Control Panel         | Y button goes CW, X button goes CCW
 Rope Hang             | Down Dpad pulls rope in, Up Dpad Pushes rope
 Cascade Lift          | Up Dpad extends lift, right Dpad brings down lift
