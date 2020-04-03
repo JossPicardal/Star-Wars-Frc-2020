@@ -158,8 +158,8 @@ retract both at different times.
     }
     else if (LT > 0) { // Left trigger is pressed
       // Pulls ball back in
-      leftFlywheel.set(1);
-      rightFlywheel.set(1);
+      leftFlywheel.set(-1);
+      rightFlywheel.set(-1);
     }
 
     else if (RB) {
@@ -171,28 +171,22 @@ retract both at different times.
     // intake.set (-RT);
     }
 
-    else if (bButton) {
-    //Deploy hang
-    leftHang.set(0.5);
-    rightHang.set (-0.5);
-    }
-    else if (xButton) {
-    //Hang robot
-    leftHang.set (-0.5);
-    rightHang.set(0.5);
-    }
-
-
-    
     else if (aButton) {
-    //comment function here
-
+      //comment function here
+    }
+    else if (bButton) {
+      //comment function here
     }
     
+    
+    else if (xButton) {
+      // motor turns counterclockwise
+      controlPanel.set(-0.5);
+    }
     
     else if (yButton) {
-    //comment function here
-    
+      // motor turns clockwise
+      controlPanel.set(0.5);
     }
 
     //holds the motors in place
@@ -253,17 +247,6 @@ I 1 motor for control panel
 I 2 motors for flywheel
 I 2 motors for intake
 
-Victor ports (only 9)
-
-Drivebase victor 7 & 6
-Right hang motors 0
-Left hang motors  1
-Motor lift (Cascade motor) 2
-control Panel 3
-Flywheel1 4
-Flywheel2 5
-IntakeFront 6
-IntakeBack 7
 */
 
 /*
