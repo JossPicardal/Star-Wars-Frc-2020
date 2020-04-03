@@ -11,9 +11,9 @@ package frc.robot;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -195,8 +195,10 @@ retract both at different times.
     leftHang.set(0);
     rightHang.set (0);
     cascadeLift.set(0);
-    // rightLift.set(0);
-    // intake.set(0);
+    //anything added after this comment
+    //was added just in case I needed to 
+    //add new motors.
+    controlPanel.set(0);
     }
   }
   /**
@@ -264,11 +266,11 @@ Cascade lift       | 1 port  | 1 motor   | Victor 8 |
 */
 
 /*
-Left Drivebase        | Left stick
-Right Drivebase       | Right Stick
-Intake                | Right Bumper Intake, Right Trigger Outtakes
-Left & Right Flywheel | Left Bumper fly's ball, Left Trigger reverses ball in
-Control Panel         | Y button goes CW, X button goes CCW
+`Left Drivebase        | Left stick
+`Right Drivebase       | Right Stick
+`Intake                | Right Bumper Intake, Right Trigger Outtakes
+`Left & Right Flywheel | Left Bumper fly's ball, Left Trigger reverses ball in
+`Control Panel         | Y button goes CW, X button goes CCW
 Rope Hang             | Down Dpad pulls rope in, Up Dpad Pushes rope
 Cascade Lift          | Up Dpad extends lift, right Dpad brings down lift
 
