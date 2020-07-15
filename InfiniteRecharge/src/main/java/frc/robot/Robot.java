@@ -34,14 +34,15 @@ public class Robot extends TimedRobot {
   XboxController xbox = new XboxController(0);
 
   // reprogram every motor excluding the drivebase motors
+  // declares the type of speed controller the moter is using
   VictorSP leftDrive, rightDrive, cascadeLift, controlPanel, leftFlywheel, rightFlywheel, intake;
   PWMVictorSPX leftHang, rightHang;
   DifferentialDrive robotDrive;
   SpeedControllerGroup leftB, rightB;
-  /**
-   * This function is run when the robot is first started up and should be
-   * used for any initialization code.
-   */
+  
+  // This function is run when the robot is first started up and should be
+  // used for any initialization code.
+  
   @Override
   public void robotInit() {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
@@ -66,7 +67,7 @@ public class Robot extends TimedRobot {
     //Intake
     //some problem might arise with using VictorSPX with VictorSP
     // intake = new PWMVictorSPX(8);
-    //Camera
+    //Starts camera(s)
     CameraServer.getInstance().startAutomaticCapture(0);
     CameraServer.getInstance().startAutomaticCapture(1);
   }
@@ -117,23 +118,24 @@ public class Robot extends TimedRobot {
    * This function is called periodically during operator control.
    */
   @Override
+
+  // This part of the program gets the current value of the buttons on the controller
   public void teleopPeriodic() {
     
     boolean aButton = stick.getRawButton(1);
     boolean bButton = stick.getRawButton(2);
     boolean xButton = stick.getRawButton(3);
     boolean yButton = stick.getRawButton(4);
-    boolean back = stick.getRawButton(7);
-    boolean start = stick.getRawButton(8);
-    boolean leftStickButton = stick.getRawButton(9);
-    boolean rightStickButton = stick.getRawButton(10); 
     boolean RB = stick.getRawButton(6);
     double RT = stick.getRawAxis(3);
     boolean LB = stick.getRawButton(5);
     double LT = stick.getRawAxis(2);
-    //Pneumatics controller
-    //z double joyR = stick.getRawAxis(5);
-    // double joyL = stick.getRawAxis(1);
+
+    // unused buttons 
+    // boolean back = stick.getRawButton(7);
+    // boolean start = stick.getRawButton(8);
+    // boolean leftStickButton = stick.getRawButton(9);
+    // boolean rightStickButton = stick.getRawButton(10);
     robotDrive.tankDrive(-stick.getRawAxis(1), -stick.getRawAxis(5), true);
     
 /*
@@ -145,10 +147,9 @@ Control Panel         | Y button goes CW, X button goes CCW
 Rope Hang             | Down Dpad pulls rope in, Up Dpad Pushes rope
 Cascade Lift          | Up Dpad extends lift, right Dpad brings down lift
 
-a button to extend both the rope and lift, and two other buttons to 
+aButton to extend both the rope and lift, and two other buttons to 
 retract both at different times.
-**NOTE** Cascade lift and rope should go up at the
-         the same time but go down seperately
+**NOTE** Cascade lift and rope should go up at the the same time but go down seperately
 */
 
     if (LB) { // Left bumper is pressed
@@ -209,50 +210,9 @@ retract both at different times.
   }
 }
 
-/* 
-unused buttons
-A
-Y
-
-*/
 
 /*
-14 motors
-
-I = incomplete
-C= completed
-
-C 1 motor for the cascade lift
-C 4 motors for the rope lift
-C drivebase(left & right) 4 motors total
-I 1 motor for control panel
-I 2 motors for flywheel
-I 2 motors for intake
-
-*/
-
-/*
-motor controls
-
-Drivebase: leftDrive, rightDrive
-rope Hang: LeftHang1, leftHang2, rightHang1, rightHang2
-cascade Lift: motorLift
-
-*/
-
-/*
-  
-C 1 motor for the cascade lift
-C 4 motors for the rope lift
-C drivebase(left & right) 4 motors total
-I 1 motor for control panel
-I 2 motors for flywheel
-I 2 motors for intake
-
-*/
-
-/*
-Hopefully the final time im redoing this
+more notes...
 Variable           |  Port   |Motor Count| Victor # |
 Left drivebase     | 1 port  | 2 motors  | Victor 0 | Left Stick
 right drivebase    | 1 port  | 2 motors  | Victor 1 | Right Stick
